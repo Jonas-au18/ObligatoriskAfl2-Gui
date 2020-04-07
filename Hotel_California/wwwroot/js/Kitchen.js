@@ -45,6 +45,8 @@ monthNames = ["January", "February", "March", "April", "May", "June",
 
 var d = new Date();
 
-var guest = 20
-var adults = 12
-var kids = 8
+var adults = Math.floor(Math.random() * 30);
+
+var kids = Math.floor(Math.random() * 30);
+
+var guest = adults + kids;

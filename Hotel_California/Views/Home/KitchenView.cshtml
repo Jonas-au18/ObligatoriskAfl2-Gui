@@ -11,8 +11,8 @@
 </head>
 <body>
 
-<div class="calendar">
-    <!--This is the "Frontside". This is what the user sees when he opens the kalender-->
+    <div class="calendar">
+        <!--This is the "Frontside". This is what the user sees when he opens the kalender-->
         <div class="front">
 
             <div class="month">
@@ -93,97 +93,130 @@
 
 
         <!--This is the "backside" where the user is sent after clicking on a date-->
-    <div class="back">
-        <div class="info">
-            <div class="date">
-                <p class="info-date">
-                    Date: <span id="date"></span>
-                </p>
-                <div class="time">
-                    <p class="info-time">
-                        Time: <span id="time"></span>
+        <div class="back">
+            <div class="info">
+                <div class="date">
+                    <p class="info-date">
+                        Date: <span id="date"></span>
+                    </p>
+                    <div class="time">
+                        <p class="info-time">
+                            Time: <span id="time"></span>
+                        </p>
+                    </div>
+                </div>
+                <div class="bookings">
+                    <p class="info-bookings">
+                        adults: <span id="adults"></span>
+                    </p>
+                    <p class="info-bookings">
+                        kids: <span id="kids"></span>
+                    </p>
+                    <p class="info-bookings">
+                        Booking: <span id="reservations"></span>
+                    </p>
+                </div>
+                <div class="bookings">
+                    <p class="info-bookings">
+                        checked in: <span id="adults actual"></span>
+                    </p>
+                    <p class="info-bookings">
+                        checked in: <span id="kids actual"></span>
+                    </p>
+                    <p class="info-bookings">
+                        Arrived: <span id="checkedIN"></span>
                     </p>
                 </div>
             </div>
-            <div class="bookings">
-                <p class="info-bookings">
-                    Booking: <span id="reservations"></span>
-                </p>
-                <p class="info-bookings">
-                    adults: <span id="adults"></span>
-                </p>
-                <p class="info-bookings">
-                    kids: <span id="kids"></span>
-                </p>
-            </div>
-            <div class="bookings">
-                <p class="info-bookings">
-                    Arrived: <span id="checkedIN"></span>
-                </p>
-                <p class="info-bookings">
-                    checked in: <span id="adults actual"></span>
-                </p>
-                <p class="info-bookings">
-                    checked in: <span id="kids actual"></span>
-                </p>
+            <div class="actions">
+                <button class="save">
+                    Save <i class="ion-checkmark"></i>
+                </button>
+                <button class="dismiss">
+                    close <i class="ion-android-close"></i>
+                </button>
             </div>
         </div>
-        <div class="actions">
-            <button class="save">
-                Save <i class="ion-checkmark"></i>
-            </button>
-            <button class="dismiss">
-                close <i class="ion-android-close"></i>
-            </button>
-        </div>
-    </div>
     </div>
 
-        @section Scripts
+    @section Scripts
 {
-            <script src="~/js/Kitchen.js" asp-append-version="true"></script>
-            <script>
-                /* Guest who are signed up for breakfast */
-                document.getElementById("reservations").innerHTML = guest;
-                document.getElementById("adults").innerHTML = adults;
-                document.getElementById("kids").innerHTML = kids;
+        <script src="~/js/Kitchen.js" asp-append-version="true"></script>
+        <script>
+            /* Guest who are signed up for breakfast */
+            document.getElementById("adults").innerHTML = adults;
 
-                /* Guest who have checked in for breakfast */
-                document.getElementById("checkedIN").innerHTML = guest - 6;
-                document.getElementById("adults actual").innerHTML = adults - 2;
-                document.getElementById("kids actual").innerHTML = kids - 4;
-            </script>
-            <script>
+            /* Guest who have checked in for breakfast */
+            if (adults - 2 < 0) {
+                document.getElementById("adults actual").innerHTML = 0;
+            }
+            else {
+                var adultsN = adults - 2;
+                document.getElementById("adults actual").innerHTML = adultsN;
+            }
+        </script>
+        <script>
+            /* Guest who are signed up for breakfast */
+            document.getElementById("kids").innerHTML = kids;
 
-                document.getElementById("time").innerHTML = d.getHours() + ":" + d.getMinutes();
-                document.getElementById("date").innerHTML = monthNames[d.getMonth()] + " \n" + d.getFullYear();
+            /* Guest who have checked in for breakfast */
+            if (kids - 4 < 0) {
+                document.getElementById("kids actual").innerHTML = 0;
+            }
+            else {
+                var kidsN = kids - 4;
+                document.getElementById("kids actual").innerHTML = kidsN;
+            }
+        </script>
+        <script>
+            /* Guest who are signed up for breakfast */
+            document.getElementById("reservations").innerHTML = guest;
+
+            /* Guest who have checked in for breakfast */
+            if (adultsN > 0 && kidsN > 0) {
+                document.getElementById("checkedIN").innerHTML = adultsN + kidsN;
+            }
+            else if (adultsN > 0 && !kidsN > 0) {
+                document.getElementById("checkedIN").innerHTML = adultsN;
+            }
+            else if (!adultsN > 0 && kidsN > 0) {
+                document.getElementById("checkedIN").innerHTML = kidsN;
+            }
 
 
-                var x = d.getMonth();
-                var y = d.getFullYear();
+        </script>
 
-                function prevMonth() {
-                    if (x <= 0) {
-                        x = 11;
-                        y--;
-                    } else {
-                        x--;
-                    }
-                    document.getElementById("date").innerHTML = monthNames[x] + " \n" + y;
+        <script>
+
+            document.getElementById("time").innerHTML = d.getHours() + ":" + d.getMinutes();
+            document.getElementById("date").innerHTML = monthNames[d.getMonth()] + " \n" + d.getFullYear();
+
+
+            var x = d.getMonth();
+            var y = d.getFullYear();
+
+            function prevMonth() {
+                if (x <= 0) {
+                    x = 11;
+                    y--;
+                } else {
+                    x--;
                 }
+                document.getElementById("date").innerHTML = monthNames[x] + " \n" + y;
+            }
 
-                function NextMonth() {
-                    if (x >= 11) {
-                        x = 0;
-                        y++;
-                    } else {
-                        x++;
-                    }
-                    document.getElementById("date").innerHTML = monthNames[x] + " \n" + y;
+            function NextMonth() {
+                if (x >= 11) {
+                    x = 0;
+                    y++;
+                } else {
+                    x++;
                 }
+                document.getElementById("date").innerHTML = monthNames[x] + " \n" + y;
+            }
 
-            </script>
-        }
+        </script>
+    }
 
 </body>
 </html>
