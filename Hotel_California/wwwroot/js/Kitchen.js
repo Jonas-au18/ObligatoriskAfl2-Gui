@@ -1,4 +1,6 @@
-﻿var Kitchen = {
+﻿
+
+var Kitchen = {
     settings: {
         container: $('.calendar'),
         calendar: $('.front'),
@@ -36,3 +38,13 @@
 }
 
 Kitchen.init();
+
+monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+];
+
+var d = new Date();
+
+var guest = 20
+var adults = 12
+var kids = 8
