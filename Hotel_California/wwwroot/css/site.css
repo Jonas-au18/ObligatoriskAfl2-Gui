@@ -59,9 +59,8 @@ html {
 }
 
 body {
-    background-color: darkorange;
-    color: #daa520;
-    font-family: Arial;           
+    background-color: pink;
+    color: white;
 }
 
 #wrapper {
@@ -75,7 +74,7 @@ body {
 
 main {
     padding: 10px 20px 30px;
-    background-color: darkorange;
+    background-color: whitesmoke;
     color: black;
 }
 .footer {
