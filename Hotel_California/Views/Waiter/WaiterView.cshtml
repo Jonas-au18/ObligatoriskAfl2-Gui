@@ -1,0 +1,30 @@
+﻿@model Hotel_California.Models.Room;
+
+
+@{
+    ViewData["Title"] = "WaiterView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="css/Kitchen.css">
+</head>
+<body>
+
+    <h1>WaiterView</h1>
+
+
+    <form action="/action_page.php">
+        <label for="RoomNr">Room number:</label>
+        <input asp-for="RoomNr" /><br /><br />
+        <label for="Adults">Adults:</label>
+        <input asp-for="Guest.Count" /><br /><br />
+        <label for="Kids">Kids:</label>
+        <input asp-for="Guest.Count" /><br/><br/>
+        <input type="submit" value="Submit">
+    </form>
+
+</body>
+</html>

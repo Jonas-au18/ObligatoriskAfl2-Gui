@@ -1,0 +1,223 @@
+﻿
+@{
+    ViewData["Title"] = "Kitchen";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<!-- https://dribbble.com/shots/2407357-Calendar%60 --> 
+<html>
+<head>
+    <link rel="stylesheet" href="css/Kitchen.css">
+</head>
+<body>
+
+    <div class="calendar">
+        <!--This is the "Frontside". This is what the user sees when he opens the kalender-->
+        <div class="front">
+
+            <div class="month">
+                <ul>
+                    <li id="date"></li>
+                    <li onclick="prevMonth()" class="prev">&#10094;</li>
+                    <li onclick="NextMonth()" class="next">&#10095;</li>
+                </ul>
+
+            </div>
+
+            <!--Here are the weekdays created-->
+            <div>
+                <ul class="week-days">
+                    <li>MON</li>
+                    <li>TUE</li>
+                    <li>WED</li>
+                    <li>THU</li>
+                    <li>FRI</li>
+                    <li>SAT</li>
+                    <li>SUN</li>
+                </ul>
+
+                <!--Here are all dates of the month created-->
+                <div class="weeks">
+                    <div class="first">
+                        <span class="last-month">28</span>
+                        <span class="last-month">29</span>
+                        <span class="last-month">30</span>
+                        <span class="last-month">31</span>
+                        <span>01</span>
+                        <span>02</span>
+                        <span>03</span>
+                    </div>
+
+                    <div class="second">
+                        <span>04</span>
+                        <span>05</span>
+                        <span>06</span>
+                        <span class="active">07</span>
+                        <span>08</span>
+                        <span>09</span>
+                        <span>10</span>
+                    </div>
+
+                    <div class="third">
+                        <span>11</span>
+                        <span>12</span>
+                        <span>13</span>
+                        <span>14</span>
+                        <span>15</span>
+                        <span>16</span>
+                        <span>17</span>
+                    </div>
+
+                    <div class="fourth">
+                        <span>18</span>
+                        <span>19</span>
+                        <span>20</span>
+                        <span>21</span>
+                        <span>22</span>
+                        <span>23</span>
+                        <span>24</span>
+                    </div>
+
+                    <div class="fifth">
+                        <span>25</span>
+                        <span>26</span>
+                        <span>27</span>
+                        <span>28</span>
+                        <span>29</span>
+                        <span>30</span>
+                        <span>31</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--This is the "backside" where the user is sent after clicking on a date-->
+        <div class="back">
+            <div class="info">
+                <div class="date">
+                    <p class="info-date">
+                        Date: <span id="date"></span>
+                    </p>
+                    <div class="time">
+                        <p class="info-time">
+                            Time: <span id="time"></span>
+                        </p>
+                    </div>
+                </div>
+                <div class="bookings">
+                    <p class="info-bookings">
+                        adults: <span id="adults"></span>
+                    </p>
+                    <p class="info-bookings">
+                        kids: <span id="kids"></span>
+                    </p>
+                    <p class="info-bookings">
+                        Booking: <span id="reservations"></span>
+                    </p>
+                </div>
+                <div class="bookings">
+                    <p class="info-bookings">
+                        checked in: <span id="adults actual"></span>
+                    </p>
+                    <p class="info-bookings">
+                        checked in: <span id="kids actual"></span>
+                    </p>
+                    <p class="info-bookings">
+                        Arrived: <span id="checkedIN"></span>
+                    </p>
+                </div>
+            </div>
+            <div class="actions">
+                <button class="save">
+                    Save <i class="ion-checkmark"></i>
+                </button>
+                <button class="dismiss">
+                    close <i class="ion-android-close"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    @section Scripts
+{
+        <script src="~/js/Kitchen.js" asp-append-version="true"></script>
+        <script>
+            /* Guest who are signed up for breakfast */
+            document.getElementById("adults").innerHTML = adults;
+
+            /* Guest who have checked in for breakfast */
+            if (adults - 2 < 0) {
+                document.getElementById("adults actual").innerHTML = 0;
+            }
+            else {
+                var adultsN = adults - 2;
+                document.getElementById("adults actual").innerHTML = adultsN;
+            }
+        </script>
+        <script>
+            /* Guest who are signed up for breakfast */
+            document.getElementById("kids").innerHTML = kids;
+
+            /* Guest who have checked in for breakfast */
+            if (kids - 4 < 0) {
+                document.getElementById("kids actual").innerHTML = 0;
+            }
+            else {
+                var kidsN = kids - 4;
+                document.getElementById("kids actual").innerHTML = kidsN;
+            }
+        </script>
+        <script>
+            /* Guest who are signed up for breakfast */
+            document.getElementById("reservations").innerHTML = guest;
+
+            /* Guest who have checked in for breakfast */
+            if (adultsN > 0 && kidsN > 0) {
+                document.getElementById("checkedIN").innerHTML = adultsN + kidsN;
+            }
+            else if (adultsN > 0 && !kidsN > 0) {
+                document.getElementById("checkedIN").innerHTML = adultsN;
+            }
+            else if (!adultsN > 0 && kidsN > 0) {
+                document.getElementById("checkedIN").innerHTML = kidsN;
+            }
+
+
+        </script>
+
+        <script>
+
+            document.getElementById("time").innerHTML = d.getHours() + ":" + d.getMinutes();
+            document.getElementById("date").innerHTML = monthNames[d.getMonth()] + " \n" + d.getFullYear();
+
+
+            var x = d.getMonth();
+            var y = d.getFullYear();
+
+            function prevMonth() {
+                if (x <= 0) {
+                    x = 11;
+                    y--;
+                } else {
+                    x--;
+                }
+                document.getElementById("date").innerHTML = monthNames[x] + " \n" + y;
+            }
+
+            function NextMonth() {
+                if (x >= 11) {
+                    x = 0;
+                    y++;
+                } else {
+                    x++;
+                }
+                document.getElementById("date").innerHTML = monthNames[x] + " \n" + y;
+            }
+
+        </script>
+    }
+
+</body>
+</html>
+
