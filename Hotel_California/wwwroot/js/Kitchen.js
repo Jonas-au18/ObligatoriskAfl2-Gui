@@ -1,5 +1,4 @@
 ﻿
-
 var Kitchen = {
     settings: {
         container: $('.calendar'),
@@ -44,6 +43,8 @@ monthNames = ["January", "February", "March", "April", "May", "June",
 ];
 
 var d = new Date();
+
+
 
 var adults = Math.floor(Math.random() * 30);
 
