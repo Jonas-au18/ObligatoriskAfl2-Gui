@@ -11,15 +11,21 @@ namespace Hotel_California.Controllers
 {
     public class KitchenController : Controller
     {
-        
-        public IActionResult Index()
+        private readonly ApplicationDbContext _context;
+
+        public KitchenController(ApplicationDbContext context)
         {
-            return View();
+            _context = context;
         }
 
-        public IActionResult KitchenView()
+        ////public IActionResult Index()
+        //{
+        //    return View();
+        //}
+
+        public async Task<IActionResult> KitchenView()
         {
-            return View();
+            return PartialView(await _context.Guest.ToListAsync());
         }
     }
 }

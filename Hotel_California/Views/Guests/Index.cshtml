@@ -24,11 +24,15 @@
             <th>
                 @Html.DisplayNameFor(model => model.GuestID)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.roomNr)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+    @foreach (var item in Model) 
+     {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.FName)
@@ -42,12 +46,15 @@
             <td>
                 @Html.DisplayFor(modelItem => item.GuestID)
             </td>
+            <th>
+                @Html.DisplayNameFor(model => model.roomNr.RoomNr)
+            </th>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.GuestID">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.GuestID">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.GuestID">Delete</a>
             </td>
         </tr>
-}
+     }
     </tbody>
 </table>

@@ -10,22 +10,22 @@ using Hotel_California.Models;
 
 namespace Hotel_California.Controllers
 {
-    public class GuestsController : Controller
+    public class RoomsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public GuestsController(ApplicationDbContext context)
+        public RoomsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Guests
+        // GET: Room
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Guest.ToListAsync());
+            return View(await _context.Room.ToListAsync());
         }
 
-        // GET: Guests/Details/5
+        // GET: Room/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace Hotel_California.Controllers
                 return NotFound();
             }
 
-            var guest = await _context.Guest
-                .FirstOrDefaultAsync(m => m.GuestID == id);
-            if (guest == null)
+            var room = await _context.Room
+                .FirstOrDefaultAsync(m => m.RoomNr == id);
+            if (room == null)
             {
                 return NotFound();
             }
 
-            return View(guest);
+            return View(room);
         }
 
-        // GET: Guests/Create
+        // GET: Room/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Guests/Create
+        // POST: Room/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FName,LName,Age,RoomNr.RoomNr")] Guest guest)
+        public async Task<IActionResult> Create([Bind("RoomNr,Guest,Occupied")] Room room)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(guest);
+                _context.Add(room);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(guest);
+            return View(room);
         }
 
-        // GET: Guests/Edit/5
+        // GET: Room/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace Hotel_California.Controllers
                 return NotFound();
             }
 
-            var guest = await _context.Guest.FindAsync(id);
-            if (guest == null)
+            var rooom = await _context.Room.FindAsync(id);
+            if (rooom == null)
             {
                 return NotFound();
             }
-            return View(guest);
+            return View(rooom);
         }
 
-        // POST: Guests/Edit/5
+        // POST: Room/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("GuestID,FName,LName,Age,RoomNr.RoomNr")] Guest guest)
+        public async Task<IActionResult> Edit(int id, [Bind("Guest,Occupied,RoomNr")] Room room)
         {
-            if (id != guest.GuestID)
+            if (id != room.RoomNr)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace Hotel_California.Controllers
             {
                 try
                 {
-                    _context.Update(guest);
+                    _context.Update(room);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!GuestExists(guest.GuestID))
+                    if (!RoomExists(room.RoomNr))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace Hotel_California.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(guest);
+            return View(room);
         }
 
-        // GET: Guests/Delete/5
+        // GET: Room/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace Hotel_California.Controllers
                 return NotFound();
             }
 
-            var guest = await _context.Guest
-                .FirstOrDefaultAsync(m => m.GuestID == id);
-            if (guest == null)
+            var room = await _context.Room
+                .FirstOrDefaultAsync(m => m.RoomNr == id);
+            if (room == null)
             {
                 return NotFound();
             }
 
-            return View(guest);
+            return View(room);
         }
 
-        // POST: Guests/Delete/5
+        // POST: Room/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var guest = await _context.Guest.FindAsync(id);
-            _context.Guest.Remove(guest);
+            var room = await _context.Room.FindAsync(id);
+            _context.Room.Remove(room);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool GuestExists(int id)
+        private bool RoomExists(int id)
         {
-            return _context.Guest.Any(e => e.GuestID == id);
+            return _context.Room.Any(e => e.RoomNr == id);
         }
     }
 }

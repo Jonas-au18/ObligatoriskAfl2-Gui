@@ -13,7 +13,7 @@ namespace Hotel_California.Models
         {
             get
             {
-                if (Age < 16)
+                if (Age < 13)
                 {
                     return false;
                 }
