@@ -16,15 +16,22 @@
     <h1>WaiterView</h1>
 
 
-    <form action="/action_page.php">
+<form action="/action_page.php">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div>
         <label for="RoomNr">Room number:</label>
         <input asp-for="RoomNr" /><br /><br />
+    </div>
+    <div>
         <label for="Adults">Adults:</label>
         <input asp-for="Guest.Count" /><br /><br />
+    </div>
+    <div>
         <label for="Kids">Kids:</label>
-        <input asp-for="Guest.Count" /><br/><br/>
-        <input type="submit" value="Submit">
-    </form>
+        <input asp-for="Guest.Count" /><br /><br />
+    </div>
+    <input type="submit" value="Submit">
+</form>
 
 </body>
 </html>

@@ -12,6 +12,8 @@ using Hotel_California.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http;
 
 namespace Hotel_California
 {
@@ -37,7 +39,8 @@ namespace Hotel_California
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext context,
+            ILogger<Startup> log)
         {
             if (env.IsDevelopment())
             {
@@ -51,12 +54,21 @@ namespace Hotel_California
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                OnPrepareResponse = ctx =>
+                    {
+                        ctx.Context.Response.Headers.Append("Cache-Control",
+                            "public,max-age2419200");
+                    }
+            });
 
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            DbHelper.SeedData(context,log);
 
             app.UseEndpoints(endpoints =>
             {
