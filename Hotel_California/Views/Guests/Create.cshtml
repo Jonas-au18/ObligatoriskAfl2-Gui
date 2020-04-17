@@ -1,5 +1,6 @@
 ﻿@model Hotel_California.Models.Guest
 
+
 @{
     ViewData["Title"] = "Create";
 }
@@ -28,9 +29,9 @@
                 <span asp-validation-for="Age" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="roomNr.RoomNr" class="control-label"></label>
-                <input asp-for="roomNr.RoomNr" class="form-control" />
-                <span asp-validation-for="roomNr.RoomNr" class="text-danger"></span>
+                <label asp-for="roomNr" class="control-label"></label>
+                <input asp-for="roomNr" class="form-control" />
+                <span asp-validation-for="roomNr" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
