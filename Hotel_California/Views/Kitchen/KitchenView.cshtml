@@ -1,4 +1,5 @@
-﻿@using Hotel_California.Data
+﻿@using System.Net.Mime
+@using Hotel_California.Data
 @using Microsoft.EntityFrameworkCore
 @model IEnumerable<Hotel_California.Models.Guest>
 
@@ -149,8 +150,7 @@
         @{
             List<Guest> adults = new List<Guest>();
             List<Guest> kids = new List<Guest>();
-
-            using (var context = new ApplicationDbContext())
+            using (var context = ApplicationDbContext.getContext())
             {
                 var query = context.Guest
                     .FirstOrDefault();

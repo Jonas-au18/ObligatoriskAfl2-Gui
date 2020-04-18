@@ -13,8 +13,10 @@ namespace Hotel_California.Data
              : base(options)
         { }
 
-        public ApplicationDbContext()
-        { }
+        public ApplicationDbContext getContext()
+        {
+            return this;
+        }
 
 
         public virtual DbSet<Room> Room { get; set; }
