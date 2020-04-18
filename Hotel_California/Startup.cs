@@ -40,7 +40,7 @@ namespace Hotel_California
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext context,
-            ILogger<Startup> log)
+            UserManager<IdentityUser> userManager, ILogger<Startup> log)
         {
             if (env.IsDevelopment())
             {
@@ -68,7 +68,7 @@ namespace Hotel_California
             app.UseAuthentication();
             app.UseAuthorization();
 
-            DbHelper.SeedData(context,log);
+            DbHelper.SeedData(context, userManager, log);
 
             app.UseEndpoints(endpoints =>
             {

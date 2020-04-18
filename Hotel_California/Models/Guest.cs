@@ -4,7 +4,6 @@ namespace Hotel_California.Models
 {
     public class Guest
     {
-        [Key]
         public int GuestID { get; set; }
         public string FName { get; set; }
         public string LName { get; set; }

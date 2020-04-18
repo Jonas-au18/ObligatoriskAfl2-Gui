@@ -2,13 +2,14 @@
 using System.Linq;
 using Hotel_California.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace Hotel_California.Data
 {
     public class DbHelper
     {
-        public static void SeedData(ApplicationDbContext db, ILogger log)
+        public static void SeedData(ApplicationDbContext db, UserManager<IdentityUser> userManager, ILogger log)
         {
 
             Seed(db, log);
@@ -112,8 +113,7 @@ namespace Hotel_California.Data
                 db.Guest.AddRange(room1);
                 db.Guest.AddRange(room2);
                 db.Guest.AddRange(room3);
-                db.SaveChangesAsync();
-                
+
             }
             if (r == null)
             {
