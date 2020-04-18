@@ -150,8 +150,15 @@
             List<Guest> adults = new List<Guest>();
             List<Guest> kids = new List<Guest>();
 
-           
-        
+            using (var context = new ApplicationDbContext())
+            {
+                var query = context.Guest
+                    .FirstOrDefault();
+
+                kids.Add(query);
+            }
+
+
         }
 
 
